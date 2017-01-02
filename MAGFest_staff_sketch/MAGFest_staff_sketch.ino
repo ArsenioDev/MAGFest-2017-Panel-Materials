@@ -1,7 +1,12 @@
+
+
+
+
 //Passive activity is breathing LEDs, on trigger or fire cue strobe firing
 
 #include <WS2812FX.h>
-
+#include <DFPlayer_Mini_Mp3.h>
+#include <SoftwareSerial.h>
 #define LED_COUNT 5
 #define LED_PIN 8
 #define TRIGGER 2
@@ -26,6 +31,8 @@ void setup() {
   ws2812fx.setMode(FX_MODE_BREATH);
   ws2812fx.start();
   pinMode(TRIGGER, INPUT_PULLUP);
+  mp3_set_serial (Serial); //set Serial for DFPlayer-mini mp3 module 
+  mp3_set_volume (10);
 }
 
 void loop() {
@@ -55,8 +62,10 @@ digitalRead(TRIGGER);
 void startShow(int i) {
   switch(i){
     case 0: ws2812fx.setMode(FX_MODE_BREATH);
+            mp3_play (1); //play 0001.mp3
             break;
-    case 1: ws2812fx.setMode(FX_MODE_MULTI_STROBE);            
+    case 1: ws2812fx.setMode(FX_MODE_MULTI_STROBE);
+            mp3_play (2); 
             break;
 
   }
