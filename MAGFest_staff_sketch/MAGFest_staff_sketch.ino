@@ -18,6 +18,7 @@ Used in "Lights, Motion, Sound: Adding programmability to cosplay with Arduino"
 #define LED_PIN 8
 #define TRIGGER 2
 
+SoftwareSerial mySerial(10, 11); //RX. TX
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
 // Parameter 3 = pixel type flags, add together as needed:
@@ -38,8 +39,9 @@ void setup() {
   ws2812fx.setMode(FX_MODE_BREATH);
   ws2812fx.start();
   pinMode(TRIGGER, INPUT_PULLUP);
-  mp3_set_serial (Serial); //set Serial for DFPlayer-mini mp3 module 
-  mp3_set_volume (10);
+  mySerial.begin (9600);
+  mp3_set_serial (mySerial);  //set softwareSerial for DFPlayer-mini mp3 module 
+  mp3_set_volume (30);
 }
 
 void loop() {
